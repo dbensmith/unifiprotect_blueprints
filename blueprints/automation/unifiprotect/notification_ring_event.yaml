@@ -236,12 +236,17 @@ action:
         tag: "{{ notification_tag }}"
         # Android notification Channel
         channel: "{{ notification_channel }}"
-        # Android high prority
+        # Android high priority
         ttl: 0
         priority: high
         # Android alert once (requires tag to be set)
-        alert_once: {{ (tag != "") | string | lower }}
-        # iOS high prority
+        alert_once: |
+          {% if tag != "" %}
+            true
+          {% else %}
+            false
+          {% endif %}
+        # iOS high priority
         time-sensitive: 1
         image: "{{ notification_image }}"
         # only for iOS
@@ -275,12 +280,17 @@ action:
                 tag: "{{ notification_tag }}"
                 # Android notification Channel
                 channel: "{{ notification_channel }}"
-                # Android high prority
+                # Android high priority
                 ttl: 0
                 priority: high
                 # Android alert once (requires tag to be set)
-                alert_once: {{ (tag != "") | string | lower }}
-                # iOS high prority
+                alert_once: |
+                  {% if tag != "" %}
+                    true
+                  {% else %}
+                    false
+                  {% endif %}
+                # iOS high priority
                 time-sensitive: 1
                 image: "{{ notification_image }}"
                 video: "/api/unifiprotect/video/{{ config_entry_id(entity_id) }}/{{ entity_id }}/{{ (as_datetime(video_end) - timedelta(seconds=input_video_cutoff)).isoformat() }}/{{ video_end }}"
