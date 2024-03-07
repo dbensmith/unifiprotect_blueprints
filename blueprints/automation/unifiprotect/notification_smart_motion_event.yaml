@@ -59,6 +59,7 @@ blueprint:
           multiple: true
     alarm_entity:
       name: (Optional) Alarm Entity
+      default: ""
       description: The alarm entity to monitor for state changes.
       selector:
         entity:
