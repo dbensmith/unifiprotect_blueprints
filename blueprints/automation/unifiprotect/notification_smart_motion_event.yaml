@@ -308,11 +308,11 @@ action:
                 priority: high
                 # Android alert once (requires tag to be set)
                 alert_once: |
-                {% if notification_tag is not none and notification_tag != "" %}
-                true
-                {% else %}
-                false
-                {% endif %}
+                  {% if notification_tag is not none and notification_tag != "" %}
+                  true
+                  {% else %}
+                  false
+                  {% endif %}
                 # iOS high priority
                 time-sensitive: 1
                 image: "{{ notification_image }}"
