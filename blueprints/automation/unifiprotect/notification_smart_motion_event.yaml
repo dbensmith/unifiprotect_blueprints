@@ -262,8 +262,6 @@ action:
           {% else %}
           false
           {% endif %}
-        # Android status bar icon
-        notification_icon: "mdi:motion-sensor"
         # iOS high priority
         time-sensitive: 1
         image: "{{ notification_image }}"
@@ -315,8 +313,6 @@ action:
                   {% else %}
                   false
                   {% endif %}
-                # Android status bar icon
-                notification_icon: "mdi:motion-sensor"
                 # iOS high priority
                 time-sensitive: 1
                 image: "{{ notification_image }}"
