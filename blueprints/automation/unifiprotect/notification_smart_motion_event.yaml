@@ -256,7 +256,7 @@ action:
         ttl: 0
         priority: high
         # Android alert once (requires tag to be set)
-        alert_once: {{ tag != "" }}
+        alert_once: "{{ tag != "" }}"
         # iOS high priority
         time-sensitive: 1
         image: "{{ notification_image }}"
@@ -302,7 +302,7 @@ action:
                 ttl: 0
                 priority: high
                 # Android alert once (requires tag to be set)
-                alert_once: {{ tag != "" }}
+                alert_once: "{{ tag != "" }}"
                 # iOS high priority
                 time-sensitive: 1
                 image: "{{ notification_image }}"
