@@ -80,8 +80,7 @@ blueprint:
         https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
       default: "%H:%M:%S %Z"
       selector:
-        entity:
-
+        text:
     cooldown:
       name: (Optional) Cooldown
       description: >
