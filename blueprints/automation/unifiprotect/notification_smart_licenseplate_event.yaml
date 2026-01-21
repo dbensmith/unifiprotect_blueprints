@@ -5,8 +5,7 @@ blueprint:
   description: |
     ## UniFi Protect License Plate Notifications
 
-    This blueprint will send push notifications to a Home Assistant mobile app when an AI series series camera detects
-    a License Plate.
+    This blueprint will send push notifications to the Home Assistant mobile app when a Ubiquiti UniFi camera triggers a License Plate Smart Detection.
 
     ### Required Settings
 
@@ -15,25 +14,30 @@ blueprint:
     ### Optional Settings
 
       - Notification target for the [mobile app notification target][1].
-      - Time formatting strings. Timestamp is injected into the notification in case the notification is delay.
-      - Cooldown before sending another notification
-      - Silence timer for muting notifications via Actionable Notification (docs: [Mobile][2])
-      - Configurable lovelace view from notification
+      - Time formatting strings: Timestamps are included in notification messages so you know when a detection occurred.
+      - Cooldown before sending another notification.
+      - Silence timer for muting notifications via Actionable Notifications (docs: [Mobile][2]).
+      - Open the lovelace view of your choice by pressing a button in the notification.
 
     ### Requirements
 
-    To take full effect of this automation blueprint, your Home Assistant instance needs some setup beforehand.
+    To take full advantage of this blueprint, your environment and Home Assistant instance need to be configured beforehand.
 
-    - An AI series UniFi Protect camera capable of detecting license plates (AI Bullet, AI Theta and AI DSLR).
-    - A valid HTTPS certificate and [properly configured external URL][3]
+    You need:
+    - One or more UniFi cameras that support license plate recognition, including the UniFi G6/AI series or newer or
+      cameras connected to a UniFi AI Port.
+    - The [UniFi Protect Integration][3] installed and connected to your UniFi Protect instance.
+    - The [Home Assistant Mobile App][4] installed and configured on one or more mobile devices.
+    - A valid HTTPS certificate and [properly configured external URL][5] for your Home Assistant instance.
       - If you are using Home Assistant Cloud, this is already set up for you.
-      - If this is not setup correctly, the actionable notifications and attachments will not appear in the notifications.
-      - You do not need your _whole_ Home Assistant to be publicly accessible. Only the paths `/api/unifiprotect/*` and
+      - If external access is not set up correctly, notifications will not display image or video attachments and actions will not work.      - You do not need your _whole_ Home Assistant to be publicly accessible. Only the paths `/api/unifiprotect/*` and
         `/api/webhook/*` need to be accessible outside of your network.
 
     [1]: https://companion.home-assistant.io/docs/notifications/notifications-basic#sending-notifications-to-multiple-devices
     [2]: https://companion.home-assistant.io/docs/notifications/actionable-notifications/
-    [3]: https://www.home-assistant.io/docs/configuration/remote/
+    [3]: https://www.home-assistant.io/integrations/unifiprotect/
+    [4]: https://www.home-assistant.io/integrations/mobile_app/
+    [5]: https://www.home-assistant.io/docs/configuration/remote/
   input:
     licenseplate_sensor:
       name: License Plate Sensor Entity
@@ -95,10 +99,10 @@ blueprint:
     silence_timer:
       name: (Optional) Silence Notifications
       description: >
-        How long to silence notifications for this camera when requested as part of the
-        actionable notification. The time interval you have to respond to the slient
-        action is controlled by "Cooldown". Short Cooldown timers may prevent you from
-        silencing.
+        How long to silence camera notifications for when requested from an
+        actionable notification. The time interval you have to respond to the Slience
+        action is controlled by "Cooldown". Short Cooldown timers may prevent alerts from
+        being silenced correctly.
       default: 30
       selector:
         number:
@@ -123,8 +127,10 @@ blueprint:
     debug_event_id:
       name: (Optional) Debug Event ID
       description: >
-        Debug Event ID for UniFi Protect to use for when manually triggering automation.
-        Will be used to generate a thumbnail for testing notifications.
+        A UniFi Protect Event ID. Use this for testing or debugging notifications.
+        When you specify a value for `Debug Event ID`, manually triggered notifications will use that event's
+        thumbnails and recordings from UniFi Protect. Your system may be configured to delete old events,
+        so ensure the Event ID specified is valid before testing.
       default: ""
       selector:
         text:
