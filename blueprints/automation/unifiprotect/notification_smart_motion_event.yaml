@@ -1,7 +1,7 @@
 blueprint:
   name: UniFi Protect Motion / Smart Detection Notifications
   domain: automation
-  source_url: https://raw.githubusercontent.com/AngellusMortis/unifiprotect_blueprints/main/blueprints/automation/unifiprotect/notification_smart_motion_event.yaml
+  source_url: https://github.com/dbensmith/unifiprotect_blueprints/raw/refs/heads/main/blueprints/automation/unifiprotect/notification_smart_motion_event.yaml
   description: |
     ## UniFi Protect Motion / Smart Detection Notifications
 
@@ -213,18 +213,18 @@ condition:
         # Case when alarm entity is not provided (making it optional)
         - condition: template
           value_template: "{{ input_alarm_entity is not defined or input_alarm_entity == '' }}"
-        
+
         # Case when both are provided and state is valid
         - condition: and
           conditions:
             # Ensure alarm entity is provided
             - condition: template
               value_template: "{{ input_alarm_entity is defined and input_alarm_entity != '' }}"
-            
+
             # Ensure alarm arm states is provided and has items
             - condition: template
               value_template: "{{ input_alarm_arm_states is defined and input_alarm_arm_states | length > 0 }}"
-            
+
             # Ensure current state of alarm entity is in the selected states
             - condition: template
               value_template: "{{ states(input_alarm_entity) in input_alarm_arm_states }}"
@@ -235,7 +235,7 @@ condition:
         # Case when presence filter is not provided (making it optional)
         - condition: template
           value_template: "{{ input_presence_filter is not defined or input_presence_filter == '' }}"
-        
+
         # Ensure no user is home if presence filter is defined
         - condition: template
           value_template: "{{ (input_presence_filter | select('is_state', 'home') | list | count) == 0 }}"
